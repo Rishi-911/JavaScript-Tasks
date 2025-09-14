@@ -10,10 +10,10 @@ for (let i = 0; i < arr.length; i++) {
 
 console.log("Maximum element is " + max);
 
-let sum = 0;
+// printing the sum of the elements
 
-for(let i = 0; i< arr.length; i++){
-    sum += arr[i]
-}
+const sum = arr.reduce((acc,curr) => acc + curr, 0)
 
 console.log("Sum of the elements of the array is " + sum)
+
+
