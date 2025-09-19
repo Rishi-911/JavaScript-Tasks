@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="todoList.css" />
+    <title>todo-app</title>
+  </head>
+  <body>
+    <div class="container" role="application" aria-label="To do list">
+      <header>
+        <div>
+          <h1>To-Do List</h1>
+          <p>Quick, focused tasks — add, complete</p>
+        </div>
+      </header>
+
+      <div class="input-row">
+        <input
+          id="taskInput"
+          type="text"
+          placeholder="Add a new task and press Add (or Enter)"
+          aria-label="Task input"
+        />
+        <button id="addBtn" class="add">Add</button>
+      </div>
+
+      <div class="controls" role="toolbar" aria-label="Filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <div id="countText">0 </div><span>task added</span>
+        <div style="flex: 1"></div>
+        <button id="clearDone" class="filter-btn">Clear done</button>
+      </div>
+      <hr>
+      <div class="list-div">
+        <div>
+          <ul id="list" class="list" aria-live="polite"></ul>
+        </div>
+      </div>
+
+      <div class="meta">
+        <div style="color: var(--muted)">Tip: press Enter to add</div>
+      </div>
+    </div>
+
+    <script src="todoList.js"></script>
+  </body>
+</html>
