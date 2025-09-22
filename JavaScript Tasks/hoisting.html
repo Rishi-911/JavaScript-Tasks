@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        {
+        
+            greet()
+            c()
+            console.log(a)
+            console.log(b)
+            myFunc()  // This will not work
+            function greet(){
+                console.log("Hello")
+            }
+            var a = 9;
+            let b = 43;
+
+             const myFunc = () =>{   // this is a function expression which is not hoisted
+                console.log("rishi")
+            }
+
+            let c = function (){  // this is a function expression which is not hoisted
+                console.log("Good morning")
+            }
+            
+
+        }
+    </script>
+</body>
+</html>
