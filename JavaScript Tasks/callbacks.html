@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+        {
+             const placeOrder = (callback) =>{
+                console.log("Wait until your order is placed")
+                setTimeout(() =>{
+                    console.log("Your order has been placed");
+                    callback()
+                },2000)
+             }
+             const cook = (callback) =>{
+                setTimeout(() =>{
+                    console.log("Your order is underway")
+                    callback()
+                },3000);
+             }
+
+             const deliver = (callback) =>{
+                setTimeout(() =>{
+                    console.log("Your order is deliverd")
+                    callback()
+                }, 3000)
+                
+             }
+
+            placeOrder(() =>{
+                cook(() =>{
+                    deliver(() =>{
+                        
+                    })
+                })
+            })
+
+
+        }
+    </script>
+</body>
+</html>
