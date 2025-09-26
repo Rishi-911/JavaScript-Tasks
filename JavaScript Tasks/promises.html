@@ -6,12 +6,22 @@
     <title>Document</title>
 </head>
 <body>
-    
-
-
     <script>
         {
-            
+        let data = fetch('https://jsonplaceholder.typicode.com/users/1');
+        data.then((response) =>{
+            return response.json()
+        }).then(user =>{
+            return fetch(`https://jsonplaceholder.typicode.com/posts?userId=${user.id}`)
+            .then(response => response.json())
+            .then(posts =>{
+                console.log(`User name: ${user.name}`)
+                console.log("Posts: ", posts)
+            })
+        })
+        .catch(error =>{
+            console.log("Failed to load the profile", error)
+        })
         }
     </script>
 </body>
