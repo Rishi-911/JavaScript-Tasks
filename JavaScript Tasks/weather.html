@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f0f4f8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+
+      .weather-card {
+        background: linear-gradient(135deg, #72a4e4, #5a8bc9);
+        color: white;
+        padding: 30px;
+        border-radius: 15px;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        width: 600px;
+        transition: transform 0.3s ease-in-out;
+      }
+
+      .weather-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .city{
+        font-size: 1em;
+      }
+
+      .location {
+        font-size: 1.2em;
+        font-weight: bold;
+        margin-bottom: 10px;
+        width: 300px;
+        text-transform: capitalize;
+      }
+
+      .temperature {
+        font-size: 3em;
+        font-weight: lighter;
+        margin: 10px 0;
+      }
+
+      .description {
+        font-size: 1.2em;
+        margin-bottom: 20px;
+        text-transform: capitalize;
+      }
+
+      .details {
+        display: flex;
+        justify-content: space-around;
+        padding-top: 20px;
+        border-top: 1px solid rgba(255, 255, 255, 0.3);
+      }
+
+      .detail-item {
+        text-align: center;
+      }
+
+      .detail-item p {
+        margin: 5px 0;
+        font-size: 0.9em;
+      }
+
+      .detail-item .value {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="weather-card">
+      <input class="location" placeholder="Enter the location (Press Enter)" />
+     <div> <span class="temperature">0</span><span class="temperature">°C</span></div>
+      <p class="city">City</p>
+      <p class="description">Partly Cloudy</p>
+      <div class="details">
+        <div class="detail-item">
+          <p>Humidity</p>
+          <span class="valueHumidity">0</span><span class="valueHumidity">%</span>
+        </div>
+        <div class="detail-item">
+          <p>Wind</p>
+          <span class="valueWind">0</span><span class="valueWind">km/h</span>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      {
+        const locationUpdate = document.querySelector(".location");
+        const cityUpdate = document.querySelector(".city")
+        const temperatureUpdate = document.querySelector(".temperature");
+        const descriptionUpdate = document.querySelector(".description");
+        const valueUpdateHumidity = document.querySelector(".valueHumidity");
+        const valueUpdateWind = document.querySelector(".valueWind");
+
+        const apiKey = "0e16841dab45941101c89f25edbec4bf";
+        const apiUrl =
+          "https://api.openweathermap.org/data/2.5/weather?units=metric&q=";
+      
+      async function checkWeather(city) {
+        try {
+          const response = await fetch(apiUrl + city + `&appid=${apiKey}`);
+          if (!response.ok) {
+            throw new Error("City not found");
+          }
+          let data = await response.json();
+          console.log(data);
+          locationUpdate.value = ""
+
+          if(data?.main && data?.wind && data?.name){
+            temperatureUpdate.innerHTML = data.main.temp;
+            cityUpdate.innerHTML = data.name;
+            valueUpdateHumidity.innerHTML = data.main.humidity;
+            valueUpdateWind.innerHTML = data.wind.speed;
+            descriptionUpdate.innerHTML = data.weather[0].description;
+          }
+        } catch (error) {
+          alert(error.message);
+        }
+      }
+      locationUpdate.addEventListener("keypress", (event) => {
+        if (event.key == "Enter") {
+          const city = locationUpdate.value.trim()
+          if (city) {
+            checkWeather(city);
+          } 
+          
+          else {
+            alert("Please enter the city name");
+          }
+        }
+      });
+    }
+    </script>
+  </body>
+</html>
