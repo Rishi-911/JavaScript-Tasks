@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>validation Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            background-color: #1a1a2e;
+            background-image: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+
+        .login-card {
+            width: 90%;
+            max-width: 384px;
+            padding: 2rem;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 0.75rem;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+
+        .header h2 {
+            font-size: 1.875rem;
+            font-weight: bold;
+            text-align: center;
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            text-align: center;
+            color: #ccc;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #ccc;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.625rem 1rem;
+            color: #ffffff;
+            background-color: rgba(60, 60, 60, 0.5);
+            border: 1px solid #555;
+            border-radius: 0.5rem;
+            transition: all 0.15s ease;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #4f46e5;
+            box-shadow: 0 0 0 2px #4f46e5;
+        }
+
+
+
+        .submit-btn {
+            width: 100%;
+            padding: 0.625rem 1rem;
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #ffffff;
+            background-color: #4f46e5;
+            border-radius: 0.5rem;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.15s ease, transform 0.15s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #4338ca;
+            transform: scale(1.01);
+        }
+
+        .submit-btn:focus {
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(79, 70, 229, 0.5);
+        }
+
+        .error-class {
+            color: red;
+            font-size: 15px;
+        }
+
+        .error2-class {
+            color: red;
+            font-size: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="login-card">
+        <div class="header">
+            <h2>Secure Login</h2>
+            <p>Access your account with email and password.</p>
+        </div>
+
+        <form id="login-form">
+
+            <div class="form-group">
+                <label for="email">Email or mobile number</label>
+                <input type="text" id="emailPhone-class" placeholder="" required>
+            </div>
+            <p class="error-class"></p>
+
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password-class" placeholder="" required>
+            </div>
+            <p class="error2-class"></p>
+
+            <button type="submit" class="submit-btn">
+                Log In
+            </button>
+        </form>
+
+        <script>
+            {
+                document.addEventListener('DOMContentLoaded', () => {
+                    const form = document.querySelector("#login-form")
+
+                    const emailPhone = document.querySelector("#emailPhone-class")
+                    const password = document.querySelector("#password-class");
+                    const error = document.querySelector(".error-class")
+                    const error2 = document.querySelector(".error2-class")
+                    const submit = document.querySelector(".submit-btn")
+                    const emailRegex = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/;
+                    const phoneRegex = /^[0-9]{10}$/;
+                    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{4,60}$/;
+
+
+                    form.addEventListener('submit', (event) => {
+                        event.preventDefault();
+
+                        const emailPhoneValue = emailPhone.value.trim();
+                        const passwordValue = password.value;
+                        isValidationLogin = false;
+                        isValidPassword = false;
+
+                        error.innerText = "";
+                        error2.innerText = "";
+                        error.style.display = "none";
+                        error2.style.display = "none";
+
+                        if (emailRegex.test(emailPhoneValue)) {
+                            isValidationLogin = true;
+                        }
+                        else if (phoneRegex.test(emailPhoneValue)) {
+                            isValidationLogin = true;
+                        }
+
+                        if (!isValidationLogin) {
+                            error.style.display = "block";
+                            error.innerText = "Please enter the valid email address or phone number"
+                        }
+
+                        if (!passwordRegex.test(passwordValue)) {
+                            error2.innerText = "Please enter the valid password"
+                            error2.style.display = "block"
+                        }
+                        else {
+                            isValidPassword = true;
+                        }
+                    })
+                })
+            }
+        </script>
+</body>
+
+</html>
