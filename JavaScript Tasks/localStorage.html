@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Theme Toggle</title>
+    <style>
+        body {
+            background-color: #fff;
+            color: #333;
+            transition: background-color 0.3s ease;
+        }
+        .dark-theme {
+            background-color: #333;
+            color: #fff;
+        }
+        #theme-toggle-btn{
+            cursor: pointer;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Theme Preference</h1>
+    <button id="theme-toggle-btn">Toggle Theme</button>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () =>{
+            let btn = document.querySelector("#theme-toggle-btn")
+            let body = document.body;
+
+            let savedTheme = localStorage.getItem('theme');
+
+            if(savedTheme == "dark"){
+                body.classList.add('dark-theme');
+            }
+            
+            btn.addEventListener("click",() =>{
+                body.classList.toggle('dark-theme');
+
+                if(body.classList.contains('dark-theme')){
+                    localStorage.setItem('theme','dark')
+                }
+                else{
+                    localStorage.setItem('theme','light')
+                }
+            })
+
+            
+        })
+
+
+
+
+    </script>
+</body>
+</html>
