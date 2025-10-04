@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Note-Making App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            color: #333;
+        }
+
+        .note-input {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .note-input input,
+        .note-input textarea {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+
+        .note-input input:focus,
+        .note-input textarea:focus {
+            border-color: #007bff;
+            outline: none;
+        }
+
+        .note-input textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .add-note-btn {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .add-note-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .notes-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .note {
+            background-color: #f9f9f9;
+            border: 1px solid #eee;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+        }
+
+        .note:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .note-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .note-header h3 {
+            margin: 0;
+            color: #444;
+        }
+
+        .delete-btn {
+            color: #aaa;
+            font-size: 20px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .delete-btn:hover {
+            color: #ff4d4d;
+        }
+
+        .note p {
+            color: #666;
+            margin: 0;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>My Notes</h1>
+        </header>
+        <div class="note-input">
+            <input type="text" class="note-title" placeholder="Note Title">
+            <textarea class="note-content" placeholder="Write your note here..."></textarea>
+            <button class="add-note-btn">Add Note</button>
+        </div>
+        <div class="notes-container">
+
+        </div>
+    </div>
+
+    <script>
+
+        const addBtn = document.querySelector(".add-note-btn");
+        const title = document.querySelector(".note-title");
+        const content = document.querySelector(".note-content");
+        const para = document.querySelector(".note-para");
+        const bigContainer = document.querySelector(".notes-container")
+
+
+        const getNotes = () => {
+            const storedNotes = localStorage.getItem('notes');
+            return storedNotes ? JSON.parse(storedNotes) : [];
+
+        }
+
+        const savedNotes = (notesArray) => {
+            localStorage.setItem('notes', JSON.stringify(notesArray))
+        }
+
+        const appendDisplay = (notesArray) => {
+            bigContainer.innerHTML = '';
+
+            notesArray.forEach((note, index) => {
+                const medium = document.createElement("div");
+                medium.classList.add("note");
+
+                const small = document.createElement("div")
+                small.classList.add("note-header")
+
+                const noteHead = document.createElement("h3")
+                noteHead.classList.add("heading-note");
+                noteHead.innerText = note.title;
+                title.value = "";
+
+                const deleteButton = document.createElement("span");
+                deleteButton.innerHTML = '&times;';
+                deleteButton.classList.add("delete-btn");
+
+                const para = document.createElement("p");
+                para.classList.add("note-para");
+                para.innerText = note.content;
+                content.value = "";
+
+                small.appendChild(noteHead);
+                small.appendChild(deleteButton);
+                medium.appendChild(small);
+                medium.appendChild(para);
+                bigContainer.appendChild(medium);
+
+                deleteButton.addEventListener('click', () => {
+                    const currentNotes = getNotes();
+                    currentNotes.splice(index,1);
+                    savedNotes(currentNotes);
+                    appendDisplay(currentNotes);
+
+                })
+            });
+
+
+        }
+
+        addBtn.addEventListener('click', () => {
+            if (title.value.trim() === "" || content.value.trim() === "") {
+                alert("Please add the note first")
+            }
+            else {
+                const currentNotes = getNotes();
+                const newNote = {
+                    title: title.value,
+                    content: content.value
+                }
+                currentNotes.push(newNote);
+                savedNotes(currentNotes);
+                appendDisplay(currentNotes);
+            }
+
+        })
+            window.addEventListener('DOMContentLoaded', () =>{
+                const initialNotes = getNotes();
+                appendDisplay(initialNotes);
+            })
+    </script>
+</body>
+
+</html>
