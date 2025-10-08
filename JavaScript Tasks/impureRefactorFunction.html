@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        {
+
+            // This function is impure 
+            let userSession = {
+                isAuthenticated: true,
+                name:"Rishi"
+            }
+
+            function footerGenerator(){
+                const currentYear = new Date().getFullYear();
+
+                userSession.lastActivity = Date.now();
+
+                if(userSession.isAuthenticated){
+                    return `© ${currentYear} - Managed by ${userSession.name}.`;    
+                }
+                else{
+                    return `© ${currentYear} - All Rights Reserved.`;
+                }
+            }
+            console.log(footerGenerator());
+
+
+            // mofify it to pure function
+
+            function footerGeneratorPure(year, user){
+                if(user.isAuthenticated){
+                    return  `© ${year} - Managed by ${user.name}.`; 
+                }
+                 else{
+                    return `© ${year} - All Rights Reserved.`;
+                }
+            }
+
+            const userA = {isAuthenticated: true, name:"john"};
+            const userB = {isAuthenticated: false, name:"alex"};
+            const fixedYear = 2025;
+
+            const footer1 = footerGeneratorPure(fixedYear, userA);
+            console.log(footer1);
+        }
+
+
+    </script>
+</body>
+</html>
