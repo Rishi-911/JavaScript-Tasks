@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+    <script>
+        {
+            function* infiniteNumber(){
+               let number = 0;
+               while(true){
+                yield number++;
+               }
+
+            }
+
+
+            const generator = infiniteNumber();
+
+            console.log(generator.next());
+            console.log(generator.next());
+            console.log(generator.next());
+            console.log(generator.next());
+
+            
+            let count = 0;
+            for(let num of infiniteNumber()){
+                if(num>=10){
+                    break;
+                }
+                console.log(`Generated ${num}`);
+                count++;
+            }
+        }
+    </script>
+</body>
+</html>
