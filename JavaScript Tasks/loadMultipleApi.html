@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        {
+            async function fetchAllApis() {
+
+                const apiUrls = [
+                    'https://api.example.com/data1',
+                    'https://api.example.com/data2',
+                    'https://api.example.com/data3'
+                ]
+                try{
+                const fetchPromises = apiUrls.map(url => {
+                    fetch(url).then(response => {
+                         response.json();
+                    })
+                })
+                const [data1, data2, data3] = await Promise.all(fetchPromises);
+
+                console.log('Data from api 1: ', data1);
+                console.log('Data from api 2: ', data2);
+                console.log('Data from api 3: ', data3);
+            }
+            catch(error){
+                console.error("Unable to fetch the api")
+            }
+
+            }
+
+            fetchAllApis()
+    }
+    </script>
+</body>
+
+</html>
