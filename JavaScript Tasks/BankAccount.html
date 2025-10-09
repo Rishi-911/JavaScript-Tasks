@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <script>
+        {
+            class BankAccount {
+                constructor(balance = 0) {
+                    this.balance = balance;
+                }
+                deposit(amount) {
+                    if (amount > 0) {
+                        alert(`₹ ${amount} is credited to your account, now your updated account balance is ₹ ${this.balance += amount}`)
+                    }
+                    else {
+                        alert("Please enter the positive amount")
+                    }
+                }
+                withdraw(amount) {
+                    if (amount > 0 && this.balance >= amount) {
+                        alert(` ₹ ${amount} is debited from your account, now your updated account balance is ₹ ${this.balance -= amount}`)
+                    }
+                    else {
+                        alert("You cannot withdraw money from your account due to low balance")
+                    }
+                }
+            }
+            const obj = new BankAccount();
+            const depositAmount = parseFloat(prompt("Enter the amount you want to deposit"));
+            obj.deposit(depositAmount);
+            const withdrawAmount = parseFloat(prompt("Enter the amount you want to withdraw"));
+            obj.withdraw(withdrawAmount);
+
+        }
+    </script>
+</body>
+
+</html>
