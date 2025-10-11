@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <script>
+        {
+            function startLeakyTimer(){
+                const bigData = new Array(1000).fill('some data');
+               const time =  setInterval(() =>{
+                    console.log(bigData[0])  // setInterval function holds the reference of the bigData so it is never be garbage collected to fix this we have to clean this setInterval function by passing it to the setTimeOut Interval 
+                },1000);
+
+                setTimeout(() =>{
+                    clearInterval(time);
+                    console.log("Now the timeer will be clear after 4 seconds")
+                }, 4000)
+            }
+            startLeakyTimer();  
+        }
+    </script>
+</body>
+</html>
